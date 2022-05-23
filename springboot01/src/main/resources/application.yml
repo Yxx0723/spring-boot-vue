@@ -1,0 +1,23 @@
+server:
+  port: 8081
+
+spring:
+  thymeleaf:
+    cache: false
+    suffix: .html
+    enabled: true
+    check-template: false
+    check-template-location: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring-vue
+    username: root
+    password: 123456
+
+
+# 显示SQL语句
+logging:
+  level:
+    cn:
+      yyx:
+        dao: debug
