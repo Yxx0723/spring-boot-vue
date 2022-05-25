@@ -22,9 +22,9 @@
       <el-table-column label="操作">
         <template #default="scope">
             <el-button @click="handleEdit(scope.row)">修改</el-button>
-            <el-popconfirm @confirm="confirm" title="确定要删除吗?">
+            <el-popconfirm @confirm="handleDelete(scope.row.id, scope.$index)" title="确定要删除吗?">
                 <template #reference>
-                    <el-button type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                    <el-button type="danger">删除</el-button>
                 </template>
             </el-popconfirm>
         </template>
@@ -153,13 +153,26 @@ export default {
             this.dialogVisible = true
         },
         handleSizeChange() {   //改变每页的个数时触发
-
+            this.load()
         },
         handleCurrentChange() {   //改变页码时触发
-
+          this.load()
         },
-        confirm() {
-            console.log('11');
+        handleDelete(id,index) {
+          request.delete("/api/user/" + id).then(res => {
+              if (res.code === '0') {
+                  this.$message({
+                      type: "success",
+                      message: "删除成功"
+                  })
+              } else {
+                  this.$message({
+                      type: "error",
+                      message: "删除失败"
+                  })
+              }
+          })
+            this.load()
         }
     }
 }
